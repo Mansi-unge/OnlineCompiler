@@ -47,6 +47,7 @@ This is a scalable alternative to Judge0 that lets you compile and run code in r
 
 ## 🧠 Project Architecture
 
+```
 📦 NODE_DOCKER_COMPILER
 ├── config/               # MongoDB connection setup
 │   └── db.js
@@ -70,8 +71,7 @@ This is a scalable alternative to Judge0 that lets you compile and run code in r
 ├── index.js              # Entry point: Express server setup
 ├── package.json          # Dependencies and scripts
 └── package-lock.json     # Exact dependency versions
-
-
+```
 
 ---
 
