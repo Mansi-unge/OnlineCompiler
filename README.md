@@ -72,22 +72,7 @@ NODE_DOCKER_COMPILER/
 
 ---
 
-## 📬 API Endpoints
-
-### `POST /run`
-
-- Request:
-```json
-{
-  "code": "print('Hello, World!')",
-  "language": "python",
-  "input": ""
-}
-
-Response:
-{
-  "output": "Hello, World!\n"
-}
+---
 
 ## ⚙️ Supported Languages
 
@@ -103,5 +88,7 @@ Response:
 | PHP       | php                      |
 | Bash      | bash                     |
 | C#        | mcr.microsoft.com/dotnet/sdk |
+
+---
 
 
