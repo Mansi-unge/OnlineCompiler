@@ -47,17 +47,30 @@ This is a scalable alternative to Judge0 that lets you compile and run code in r
 
 ## 🧠 Project Architecture
 
-NODE_DOCKER_COMPILER/
-├── config/ # MongoDB connection config
-├── controllers/ # Compiler logic (run & get submissions)
-├── models/ # Mongoose schema for submissions
-├── routes/ # API endpoints
-├── utils/ # Language config and file map
-├── temp/ # Temp folder for code execution
-├── .env # Environment variables
-├── .gitignore
-├── index.js # Server entry point
-├── package.json
+📦 NODE_DOCKER_COMPILER
+├── config/               # MongoDB connection setup
+│   └── db.js
+│
+├── controllers/          # Logic for handling routes (run code, fetch submissions)
+│   └── compilerController.js
+│
+├── models/               # Mongoose schemas
+│   └── Submission.js
+│
+├── routes/               # API routes
+│   └── compiler.js
+│
+├── utils/                # Utility functions and config
+│   └── fileMap.js        # Supported languages, Docker image, and commands
+│
+├── temp/                 # Temporary code files (auto-deleted post execution)
+│
+├── .env                  # Environment variables (MONGO_URI, etc.)
+├── .gitignore            # Ignore node_modules, temp, etc.
+├── index.js              # Entry point: Express server setup
+├── package.json          # Dependencies and scripts
+└── package-lock.json     # Exact dependency versions
+
 
 
 ---
