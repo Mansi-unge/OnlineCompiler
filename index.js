@@ -1,29 +1,34 @@
+// Load environment variables from .env file
 require('dotenv').config();
+
+// Import core dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const connectDB = require('./config/db'); // 🆕 DB connection
-const compilerRoutes = require('./routes/compiler');
+
+// Import custom modules
+const connectDB = require('./config/db'); // MongoDB connection logic
+const compilerRoutes = require('./routes/compiler'); // Compiler API routes
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 📦 Connect DB
+// 🔗 Connect to MongoDB
 connectDB();
 
-// 🧩 Middlewares
-app.use(cors());
-app.use(bodyParser.json());
+// 🧩 Register middlewares
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(bodyParser.json()); // Parse incoming JSON requests
 
-// 🔀 Routes
-app.use('/', compilerRoutes);
+// 🔀 Register routes
+app.use('/', compilerRoutes); // All compiler-related routes
 
-// 🌐 Health check route
+// 🌐 Health check route (optional for testing if API is live)
 app.get('/', (req, res) => {
-  res.send('CrackIt.dev Compiler API is running!');
+  res.send('🔥 CrackIt.dev Compiler API is running!');
 });
 
-// Start server
+// 🚀 Start the server
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });
