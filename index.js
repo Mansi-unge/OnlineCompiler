@@ -1,34 +1,41 @@
-// Load environment variables from .env file
 require('dotenv').config();
-
-// Import core dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
-// Import custom modules
-const connectDB = require('./config/db'); // MongoDB connection logic
-const compilerRoutes = require('./routes/compiler'); // Compiler API routes
+const connectDB = require('./config/db');
+const compilerRoutes = require('./routes/compiler');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 🔗 Connect to MongoDB
+// DB connection
 connectDB();
 
-// 🧩 Register middlewares
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(bodyParser.json()); // Parse incoming JSON requests
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
 
-// 🔀 Register routes
-app.use('/', compilerRoutes); // All compiler-related routes
+// Routes
+app.use('/', compilerRoutes);
 
-// 🌐 Health check route (optional for testing if API is live)
+// Health check
 app.get('/', (req, res) => {
   res.send('🔥 CrackIt.dev Compiler API is running!');
 });
 
-// 🚀 Start the server
+// Global error handling
+process.on('unhandledRejection', (reason) => {
+  console.error('[Unhandled Rejection]', reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('[Uncaught Exception]', err);
+});
+app.use((err, req, res, next) => {
+  console.error('[Unhandled Error]', err);
+  res.status(500).json({ error: 'Internal Server Error' });
+});
+
+// Start server
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
