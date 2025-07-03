@@ -1,57 +1,53 @@
-// utils/fileMap.js
-// Maps supported programming languages to their file extensions, Docker images, and execution commands
-
 const fileMap = {
-  python: {
-    extension: 'py',
-    image: 'python:3.10',
-    run: 'python main.py' // Runs the Python file
-  },
   c: {
     extension: 'c',
-    image: 'gcc',
-    run: 'gcc main.c -o main && ./main' // Compiles C code and runs the binary
+    image: 'gcc:latest',
+    run: 'gcc main.c -o main && ./main'
   },
   cpp: {
     extension: 'cpp',
-    image: 'gcc',
-    run: 'g++ main.cpp -o main && ./main' // Compiles C++ code and runs the binary
+    image: 'gcc:latest',
+    run: 'g++ main.cpp -o main && ./main'
+  },
+  python: {
+    extension: 'py',
+    image: 'python:3.10',
+    run: 'python main.py'
   },
   java: {
     extension: 'java',
-    image: 'openjdk',
-    run: 'javac Main.java && java -Xmx256m Main' // Compiles and runs Java with memory limit
+    image: 'openjdk:17',
+    run: 'javac Main.java && java -Xmx256m Main'
   },
   node: {
     extension: 'js',
-    image: 'node',
-    run: 'node main.js' // Runs JavaScript using Node.js
+    image: 'node:18',
+    run: 'node main.js'
   },
   go: {
     extension: 'go',
-    image: 'golang',
-    run: 'go run main.go' // Compiles and runs Go code
+    image: 'golang:1.20',
+    run: 'go run main.go'
   },
   ruby: {
     extension: 'rb',
-    image: 'ruby',
-    run: 'ruby main.rb' // Runs Ruby script
+    image: 'ruby:3.2',
+    run: 'ruby main.rb'
   },
   php: {
     extension: 'php',
-    image: 'php',
-    run: 'php main.php' // Runs PHP script
+    image: 'php:8.2',
+    run: 'php main.php'
   },
   bash: {
     extension: 'sh',
-    image: 'bash',
-    run: 'bash main.sh' // Executes Bash shell script
+    image: 'bash:latest',
+    run: 'bash main.sh'
   },
   csharp: {
     extension: 'cs',
-    image: 'mcr.microsoft.com/dotnet/sdk',
+    image: 'mcr.microsoft.com/dotnet/sdk:7.0',
     run: 'dotnet new console -o app && mv Program.cs app/ && dotnet run --project app'
-    // Creates new .NET console app, moves code in, then runs it
   },
 };
 

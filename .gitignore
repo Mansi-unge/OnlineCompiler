@@ -27,9 +27,10 @@ logs/
 *.log
 
 # Temp files
-temp/
-*.tmp
-*.swp
+# Ignore all temp contents except .gitkeep
+/temp/*
+!/temp/.gitkeep
+
 
 # VS Code
 .vscode/
