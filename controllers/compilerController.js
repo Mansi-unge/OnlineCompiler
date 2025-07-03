@@ -17,6 +17,7 @@ exports.runCode = async (req, res) => {
     return res.status(400).json({ error: 'Unsupported language' });
   }
 
+  // Use /temp folder (should exist permanently)
   const tempDir = path.resolve(__dirname, '../temp');
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir);
@@ -30,12 +31,13 @@ exports.runCode = async (req, res) => {
   const filePath = path.join(tempDir, fileName);
   fs.writeFileSync(filePath, code);
 
+  // Convert path for Docker (especially on Windows)
   let dockerPath = tempDir;
   if (os.platform() === 'win32') {
     dockerPath = dockerPath.replace(/\\/g, '/').replace(/^([A-Za-z]):/, (_, d) => `/${d.toLowerCase()}`);
   }
 
-  const runCommand = `docker run --rm -i \
+  const runCommand = `echo "${input || ''}" | docker run --rm \
     -v ${dockerPath}:/app \
     -w /app \
     --cpus="1" \
@@ -45,9 +47,14 @@ exports.runCode = async (req, res) => {
     ${langConfig.image} sh -c "timeout 5s ${langConfig.run}"`;
 
   console.log('[RunCommand]', runCommand);
+  console.log('[DockerPath]', dockerPath);
+  console.log('[FileWritten]', filePath, 'Exists:', fs.existsSync(filePath));
 
-  const dockerProcess = exec(runCommand, async (err, stdout, stderr) => {
+  exec(runCommand, async (err, stdout, stderr) => {
+    // ✅ Delete only code file after execution
     fs.unlink(filePath, () => {});
+
+    // ✅ Optional: remove any other junk files (except .gitkeep)
     fs.readdir(tempDir, (err, files) => {
       if (!err) {
         files.forEach(file => {
@@ -74,11 +81,6 @@ exports.runCode = async (req, res) => {
 
     res.json({ output: stdout || stderr });
   });
-
-  if (input) {
-    dockerProcess.stdin.write(input);
-  }
-  dockerProcess.stdin.end();
 };
 
 

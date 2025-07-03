@@ -21,7 +21,7 @@ const fileMap = {
   },
    node: {
     extension: 'js',
-    image: 'node:22',
+    image: 'node:20',
     run: 'node main.js'
   },
   go: {
