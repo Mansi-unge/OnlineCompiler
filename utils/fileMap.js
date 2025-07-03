@@ -19,9 +19,9 @@ const fileMap = {
     image: 'openjdk:17',
     run: 'javac Main.java && java -Xmx256m Main'
   },
-  node: {
+   node: {
     extension: 'js',
-    image: 'node:18',
+    image: 'node:22',
     run: 'node main.js'
   },
   go: {
